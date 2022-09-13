@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Data
@@ -41,14 +42,18 @@ public class Business {
     private String description;
 
     @Column(name = "AVERAGE_RATING")
-    private String averageRating;
+    private float averageRating;
 
     @Column(name = "CUSTOMER_COMMENT")
     private String customerComments;
 
 
     @OneToOne
+    @JoinColumn(name = "business_owner_id",referencedColumnName = "USER_ID")
     private User user;
+
+    @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
+    private List<BusinessReview> businessReviews;
 
 
 

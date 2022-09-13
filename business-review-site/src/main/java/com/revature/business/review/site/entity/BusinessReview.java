@@ -1,11 +1,9 @@
 package com.revature.business.review.site.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+
 
 @Builder
 @Data
@@ -21,9 +19,6 @@ public class BusinessReview {
     @Column(name = "REVIEW_ID")
     private Long id;
 
-    @Column(name = "BUSINESS_ID")
-    private Long business_id;
-
     @Column(name = "CUSTOMER_ID")
     private Long customer_id;
 
@@ -32,5 +27,11 @@ public class BusinessReview {
 
     @Column(name = "CUSTOMER_COMMENT")
     private String customerComments;
+
+
+    @ManyToOne
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Business business;
 
 }

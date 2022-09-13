@@ -1,9 +1,11 @@
 package com.revature.business.review.site.service;
 
 import com.revature.business.review.site.entity.User;
+import com.revature.business.review.site.repository.RoleRepository;
 import com.revature.business.review.site.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,37 +16,39 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Slf4j
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+@Slf4j
+@RequiredArgsConstructor
+public class AuthServiceImpl implements AuthService, UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
-    public User saveUser(User user) {
-        log.info("in save User");
+    public void registerUser(User user) {
+
+
+        //add default role
+        // Role userRole = roleRepository.findById(2L).get();
+
+        // user.getRoles().add(userRole);
+
+        //encode the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-       return  userRepository.save(user);
+
+        //save the user to DB
+        userRepository.save(user);
 
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       User user = userRepository.findByUsername(username);
-        if(user == null){
-            log.error("user not found in the database");
-            throw new UsernameNotFoundException("User not found in the database");
-        }else {
-            log.info("User found in the database: {}", username);
-        }
-
-        Collection<SimpleGrantedAuthority> authorities= new ArrayList<>();
-        user.getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
-
+        final User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        final Collection<GrantedAuthority> authorities= new ArrayList<>();
+        user.getRoles().stream().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }

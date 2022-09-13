@@ -11,9 +11,9 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
-@Table(name ="USER")
+@Table(name = "USER")
 public class User {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +29,12 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
-//    @Column(name = "CONTACT_NUMBER")
-//    private String contactNumber;
+    @Column(name = "CONTACT_NUMBER")
+    private String contactNumber;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "USER_ROLES",joinColumns = @JoinColumn(name="USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Collection<Role> roles;
-
 }
 
