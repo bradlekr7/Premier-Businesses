@@ -1,14 +1,14 @@
 package com.revature.business.review.site.entity;
 
 
-import com.revature.business.review.site.constant.BusinessType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Builder
 @Data
@@ -18,22 +18,20 @@ import java.util.List;
 @Table(name="BUSINESS")
 public class Business {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BUSINESS_ID")
-    private Long id;
-
+    private Long businessId;
 
     @Column(name = "BUSINESS_NAME")
-    private String name;
+    private String businessName;
 
-    @Enumerated
+    //@Enumerated
     @Column(name = "BUSINESS_TYPE")
-    private BusinessType type;
+    //private BusinessType businessType;
+    private String businessType;
 
     @Column(name = "CONTACT_INFO")
-    private String contactInfo;
+    private String businessContactInfo;
 
     @Column(name = "WEBSITE_LINK")
     private String webLink;
@@ -41,21 +39,9 @@ public class Business {
     @Column(name = "BUSINESS_DESCRIPTION")
     private String description;
 
-    @Column(name = "AVERAGE_RATING")
-    private float averageRating;
-
-    @Column(name = "CUSTOMER_COMMENT")
-    private String customerComments;
-
-
-    @OneToOne
-    @JoinColumn(name = "business_owner_id",referencedColumnName = "USER_ID")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name="userId",referencedColumnName = "userId")
     private User user;
-
-    @OneToMany(mappedBy = "business", fetch = FetchType.LAZY)
-    private List<BusinessReview> businessReviews;
-
-
-
 
 }

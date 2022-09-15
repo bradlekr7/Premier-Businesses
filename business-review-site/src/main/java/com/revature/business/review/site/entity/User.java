@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Data
 @AllArgsConstructor
@@ -13,18 +12,15 @@ import java.util.Collection;
 @Entity
 @Table(name = "USER")
 public class User {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
-    private Long id;
-
-    @Column(name = "NAME")
-    private String name;
+    private Long userId;
 
     @Column(name = "USER_NAME")
     private String username;
+
+    @Column(name = "NAME")
+    private String name;
 
     @Column(name = "PASSWORD")
     private String password;
@@ -32,9 +28,7 @@ public class User {
     @Column(name = "CONTACT_NUMBER")
     private String contactNumber;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "USER_ROLES",joinColumns = @JoinColumn(name="USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-    private Collection<Role> roles;
+//    @OneToOne
+//    @JoinTable(name = "USER",joinColumns = @JoinColumn(name="USER_NAME");
 }
 
