@@ -59,7 +59,11 @@ public class BusinessController {
         return ResponseEntity.ok(business);
     }
 
-
+    @PutMapping("/{id}")
+    public String updateUser(@PathVariable("id") long id, @RequestBody Business business){
+        service.updateBusiness(id, business);
+        return "Business updated successfully!";
+    }
 
 
 }
