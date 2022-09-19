@@ -12,4 +12,8 @@ public interface Service {
     User authenticate(String userName,String password);
     List<Business> getAllBusiness();
     Business findBusinessById(Long businessId);
+
+    // add auth related methods like forgotPassword, changeRole ....
+    Business updateBusiness(long id, Business business);
+    void deleteBusiness(long id);
 }
