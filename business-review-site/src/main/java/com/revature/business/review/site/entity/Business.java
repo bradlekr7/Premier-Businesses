@@ -25,9 +25,10 @@ public class Business {
     @Column(name = "BUSINESS_NAME")
     private String businessName;
 
-    //@Enumerated
+    @Column(name = "BUSINESS_EMAIL")
+    private String businessEmail;
+
     @Column(name = "BUSINESS_TYPE")
-    //private BusinessType businessType;
     private String businessType;
 
     @Column(name = "CONTACT_INFO")
