@@ -13,6 +13,6 @@ public interface Service {
     List<Business> getAllBusiness();
     Business findBusinessById(Long businessId);
     // add auth related methods like forgotPassword, changeRole ....
-    void updateBusiness(long id, Business business);
+    Business updateBusiness(long id, Business business);
     void deleteBusiness(long id);
 }

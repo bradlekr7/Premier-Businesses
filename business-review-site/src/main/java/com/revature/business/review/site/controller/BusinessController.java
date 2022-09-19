@@ -60,9 +60,14 @@ public class BusinessController {
     }
 
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable("id") long id, @RequestBody Business business){
-        service.updateBusiness(id, business);
-        return "Business updated successfully!";
+    public Business updateBusiness(@PathVariable("id") long id, @RequestBody Business business){
+
+        return service.updateBusiness(id, business);
+    }
+    @DeleteMapping("/{id}")
+    public String deleteBusiness(@PathVariable("id") long id){
+        service.deleteBusiness(id);
+        return "business deleted successfully";
     }
 
 

@@ -53,14 +53,15 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public void updateBusiness(long id, Business updateBusiness) {
+    public Business updateBusiness(long id, Business updateBusiness) {
         Business business1 = businessRepository.findById(id).get();
         business1.setBusinessName(updateBusiness.getBusinessName());
         business1.setBusinessType(updateBusiness.getBusinessType());
         business1.setBusinessContactInfo(updateBusiness.getBusinessContactInfo());
         business1.setWebLink(updateBusiness.getWebLink());
         business1.setDescription(updateBusiness.getDescription());
-        businessRepository.save(business1);
+        return businessRepository.save(business1);
+
     }
 
     @Override
