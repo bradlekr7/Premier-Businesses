@@ -30,6 +30,7 @@ public class BusinessController {
         Business business = new Business();
         business.setBusinessName(mapData.get("businessName"));
         business.setBusinessType(mapData.get("businessType"));
+        business.setBusinessEmail(mapData.get("businessEmail"));
         business.setBusinessContactInfo(mapData.get("businessContactInfo"));
         business.setWebLink(mapData.get("webLink"));
         business.setDescription(mapData.get("description"));
@@ -46,19 +47,19 @@ public class BusinessController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/getAllBusiness")
+    @PostMapping ("/getAllBusiness")
     public ResponseEntity<List<Business>> getAllBusiness(){
         List<Business> lstData = service.getAllBusiness();
         return ResponseEntity.ok(lstData);
     }
 
     @PostMapping("/findBusinessById")
-    public ResponseEntity<Business> findBusinessById(@RequestBody Map<String,String> mapData){
+    public ResponseEntity<Business> findBusinessById(@RequestBody Map<String,String> mapData) {
         Long businessId = Long.parseLong(mapData.get("businessId"));
         Business business = service.findBusinessById(businessId);
         return ResponseEntity.ok(business);
     }
-
+    
     @PutMapping("/{id}")
     public Business updateBusiness(@PathVariable("id") long id, @RequestBody Business business){
 
@@ -69,8 +70,6 @@ public class BusinessController {
         service.deleteBusiness(id);
         return "business deleted successfully";
     }
-
-
 }
 
 

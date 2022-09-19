@@ -28,7 +28,5 @@ public class User {
     @Column(name = "CONTACT_NUMBER")
     private String contactNumber;
 
-//    @OneToOne
-//    @JoinTable(name = "USER",joinColumns = @JoinColumn(name="USER_NAME");
 }
 

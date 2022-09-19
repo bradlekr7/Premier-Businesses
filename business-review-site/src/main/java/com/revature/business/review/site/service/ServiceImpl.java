@@ -19,11 +19,8 @@ public class ServiceImpl implements Service {
     @Autowired
     private BusinessRepository businessRepository;
 
-
-
     @Override
     public User registerUser(User user) {
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -33,9 +30,9 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public User authenticate(String userName,String password) {
-        List<User> lstUser = userRepository.findByUserNameAndPassword(userName,password);
-        if(lstUser != null && lstUser.size() > 0) {
+    public User authenticate(String userName, String password) {
+        List<User> lstUser = userRepository.findByUserNameAndPassword(userName, password);
+        if (lstUser != null && lstUser.size() > 0) {
             return lstUser.get(0);
         }
         return null;
@@ -68,6 +65,5 @@ public class ServiceImpl implements Service {
     public void deleteBusiness(long id) {
         businessRepository.deleteById(id);
     }
-
-
 }
+
