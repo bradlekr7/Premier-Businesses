@@ -53,6 +53,13 @@ public class BusinessController {
         return ResponseEntity.ok(lstData);
     }
 
+    @PostMapping("/search")
+    public ResponseEntity<List<Business>> search(@RequestBody Map<String,String> mapData) {
+        String type = mapData.get("businessType");
+        List<Business> lstData = service.search(type);
+        return ResponseEntity.ok(lstData);
+    }
+
     @PostMapping("/findBusinessById")
     public ResponseEntity<Business> findBusinessById(@RequestBody Map<String,String> mapData) {
         Long businessId = Long.parseLong(mapData.get("businessId"));
@@ -70,6 +77,7 @@ public class BusinessController {
         service.deleteBusiness(id);
         return "business deleted successfully";
     }
+
 }
 
 

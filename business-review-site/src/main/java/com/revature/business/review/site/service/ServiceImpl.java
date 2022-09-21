@@ -65,5 +65,14 @@ public class ServiceImpl implements Service {
     public void deleteBusiness(long id) {
         businessRepository.deleteById(id);
     }
+
+    @Override
+    public List<Business> search(String type) {
+        if (type != null) {
+            return businessRepository.search(type);
+        } else {
+            return businessRepository.findAll();
+        }
+    }
 }
 
